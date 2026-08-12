@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Dearest Tanu ❤️</title>
+    <style>
+        :root {
+            --bg-pink: #fff0f3;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --accent-pink: #ff6b81;
+            --deep-pink: #d63384;
+            --text-color: #4a4a4a;
+            --shadow-color: rgba(214, 51, 132, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-pink);
+            background-image: radial-gradient(#ffccd5 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1200px;
+        }
+
+        /* Continuous Falling Background Animation */
+        .falling-heart {
+            position: absolute;
+            font-size: 22px;
+            pointer-events: none;
+            z-index: 1;
+            user-select: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0.2;
+            }
+        }
+
+        /* 3D Stage Container */
+        .stage {
+            width: 92%;
+            max-width: 440px;
+            height: 680px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 10;
+        }
+
+        /* Card Setup */
+        .card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--card-bg);
+            border-radius: 28px;
+            box-shadow: 0 20px 40px var(--shadow-color);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.92) translateZ(-50px);
+            transition: all 0.5s ease-in-out;
+            backface-visibility: hidden;
+        }
+
+        .card.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateZ(0);
+        }
+
+        /* Typography & Headers */
+        h1 {
+            color: var(--deep-pink);
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-style: italic;
+        }
+
+        .sub-header {
+            color: #777;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
+
+        /* Envelope Element (Page 1) */
+        .envelope-wrapper {
+            cursor: pointer;
+            margin: auto 0;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope-wrapper:hover {
+            transform: scale(1.05);
+        }
+
+        .envelope {
+            width: 200px;
+            height: 130px;
+            background: #ffe6ea;
+            border: 3px solid var(--accent-pink);
+            border-radius: 12px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-top: 70px solid var(--accent-pink);
+        }
+
+        .envelope-heart {
+            font-size: 36px;
+            z-index: 2;
+            margin-top: 15px;
+        }
+
+        /* Cute Emoji Illustrations */
+        .cute-illustration {
+            font-size: 50px;
+            margin: 4px 0;
+            line-height: 1;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* Message Note Containers with Custom Scrollbars */
+        .note-card {
+            background: #fffdfd;
+            border: 1px dashed var(--accent-pink);
+            border-radius: 18px;
+            padding: 16px;
+            width: 100%;
+            max-height: 380px;
+            overflow-y: auto;
+            font-size: 0.88rem;
+            color: var(--text-color);
+            line-height: 1.65;
+            text-align: left;
+            margin: 6px 0;
+            box-shadow: inset 0 2px 6px rgba(255, 107, 129, 0.05);
+        }
+
+        .note-card::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .note-card::-webkit-scrollbar-thumb {
+            background: #ffccd5;
+            border-radius: 10px;
+        }
+
+        /* Forgiveness Meter Layout (Page 5) */
+        .meter-container {
+            width: 100%;
+            background: #ffe3e8;
+            border-radius: 20px;
+            height: 24px;
+            overflow: hidden;
+            margin: 12px 0;
+            border: 2px solid #ffb3c1;
+        }
+
+        .meter-fill {
+            height: 100%;
+            width: 10%;
+            background: linear-gradient(90deg, #ff85a2, var(--deep-pink));
+            border-radius: 20px;
+            transition: width 0.4s ease-out;
+        }
+
+        .heal-heart-btn {
+            background: var(--accent-pink);
+            border: none;
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 107, 129, 0.4);
+            transition: transform 0.15s ease, background-color 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px auto;
+        }
+
+        .heal-heart-btn:active {
+            transform: scale(0.85);
+        }
+
+        /* Action Buttons */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 18px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent-pink);
+            color: white;
+            box-shadow: 0 4px 14px rgba(255, 107, 129, 0.35);
+        }
+
+        .btn-primary:hover {
+            background: var(--deep-pink);
+        }
+
+        .btn-secondary {
+            background: #f1f3f5;
+            color: #666;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stage" id="stage">
+
+        <!-- PAGE 1: ENVELOPE COVER -->
+        <div class="card active" id="page-1">
+            <div style="margin-top: 20px;">
+                <h1>For My Dearest Tanu ❤️</h1>
+                <p class="sub-header">I have a special message waiting for you...</p>
+            </div>
+
+            <div class="envelope-wrapper" onclick="goToPage(2)">
+                <div class="envelope">
+                    <div class="envelope-heart">💌</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <p style="color: var(--deep-pink); font-weight: 700; font-style: italic; letter-spacing: 0.5px;">CLICK TO OPEN ❤️</p>
+            </div>
+        </div>
+
+        <!-- PAGE 2: APOLOGY FOR WHAT I HAVE DONE -->
+        <div class="card" id="page-2">
+            <div>
+                <h1>I Messed Up, Tanu 😢</h1>
+                <p class="sub-header">Please listen to my heart...</p>
+            </div>
+
+            <div class="cute-illustration">🐱🩹</div>
+
+            <div class="note-card">
+                <p>Tanu, mujhe pata hai jo maine kiya woh bohot bohot galat hai, uski koi maafi nahi hai, jaanta hoon. Par anjaane mein galti hui hai mere se... please mujhe maaf kar do. Main khud ko sudharunga, bas ek mauka chahiye, aur kuch nahi maangunga aap se life mein.</p>
+                <br>
+                <p>Bas yeh ek mauka chahiye taaki main ek behtar insaan ban sakun. Main aapko kabhi dukhi nahi dekh sakta, na kuch galat bol sakta hoon aapke baare mein. Please mujhe maaf kar do, please! Main dil se ro chuka hoon aapke bina.</p>
+                <br>
+                <p>Poori zindagi, poori life ek khali paper jaisi ho gayi hai... khali, kuch nahi hai usme aapke bina. Aaj mujhe pata chal raha hai jab apna koi door chala jata hai toh kaisa lagta hai.</p>
+                <br>
+                <p>Please Tanu, please maaf kar do. Mat jao mujhe chor kar, nahi reh paunga aapke bina. Ek baar maaf kar do! 🥺💔</p>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="goToPage(1)">← Back</button>
+                <button class="btn btn-primary" onclick="goToPage(3)">Listen to my heart 💖</button>
+            </div>
+        </div>
+
+        <!-- PAGE 3: HOW MUCH I LOVE YOU -->
+        <div class="card" id="page-3">
+            <div>
+                <h1>How Much I Love You ❤️</h1>
+                <p class="sub-header">You are everything to me...</p>
+            </div>
+
+            <div class="cute-illustration">🐻‍❄️🧸</div>
+
+            <div class="note-card">
+                <p>Main aap se duniya mein sabse zyada pyar karta hoon. Agar meri maa mera pehla pyar hain, toh aap mera aakhri pyar ho. Aapke alawa meri life mein kabhi koi aur nahi aa sakta. Aapke bina aadhura hoon, ab mujhe pata chal raha hai ki aap meri life ka ek aisa important hissa ho jiske bina jeena mushkil hai. Tanu, I love you so much!</p>
+                <br>
+                <p>Aap gussa hote ho toh mujhe accha lagta hai ki mera koi hai jisse farak padta hai. Main agar galat karoon aur mujhe nahi pata chal raha ho ki kya aur kahan galat hoon main, toh mujhe pata hai ki aap mujhe sudharoge.</p>
+                <br>
+                <p>Please Tanu, wapas aa jao... please! Aap mere best friend ho, mere soulmate ho. Main promise karta hoon aapka hath kabhi nahi chorunga, aap hi hamesha mera aakhri pyar rahogi.</p>
+                <br>
+                <p>Aap meri rookhi si duniya mein ek pyari si koyal ho, jiski aawaz sun kar bohot accha lagta hai. Please wapas aa jao! ✨💖</p>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="goToPage(2)">← Back</button>
+                <button class="btn btn-primary" onclick="goToPage(4)">Next →</button>
+            </div>
+        </div>
+
+        <!-- PAGE 4: I CAN'T LOSE YOU -->
+        <div class="card" id="page-4">
+            <div>
+                <h1>I Can't Lose You 🥺</h1>
+                <p class="sub-header">I will never give up on us...</p>
+            </div>
+
+            <div class="cute-illustration">🐰🌧️</div>
+
+            <div class="note-card">
+                <p>Tanu, dil se bol raha hoon, aapke bina main nahi reh sakta. Aap gussa hote ho, shaant ho jaate ho, toh aisa lagta hai sab kuch mere se cheen sa gaya hai. Ab koi nahi hai mere paas aapke sivay. Please ab mat jao. Aap mujhse lado, baat mat karo, jitna time lena hai lo, bas chor kar mat jao mujhe. Main nahi reh paunga.</p>
+                <br>
+                <p>Main sab kuch seh sakta hoon, sivaye iske ki aap yeh bolo "main ja rahi hoon". Mujhe sach mein nahi pata tha aisa hoga. Please mujhe maaf kar do, time lo, par mat jao mujhe chor kar, please!</p>
+                <br>
+                <p>Aap mujhe jitna bhi gussa ho, jitni der tak ho raho... main kabhi haar nahi maanunga. Marte dam tak, jab tak aap maan na jao, tab tak aapko manata rahunga. Chahe kuch bhi ho jaye, phir main chahe duniya ke kisi bhi kone mein kyun na hoon, main manata rahunga aapko. Jab tak aap mujhe maaf nahi kar dete, tab tak aapko maangunga... kabhi haar nahi maanunga. Aap hi iklote ho mere, aur aapke sivay koi nahi. Main marna pasand karunga aapke bina. 😭❤️</p>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="goToPage(3)">← Back</button>
+                <button class="btn btn-primary" onclick="goToPage(5)">Forgiveness Meter →</button>
+            </div>
+        </div>
+
+        <!-- PAGE 5: FORGIVENESS METER -->
+        <div class="card" id="page-5">
+            <div>
+                <h1 id="meter-title">FORGIVENESS METER ❤️</h1>
+                <p class="sub-header" id="meter-subtitle">Tap the heart to heal my heart!</p>
+            </div>
+
+            <div class="cute-illustration" id="final-art">🐻‍❄️😭</div>
+
+            <div style="width: 100%;">
+                <div class="meter-container">
+                    <div class="meter-fill" id="meter-fill"></div>
+                </div>
+                <p id="percentage-text" style="font-weight: 700; color: var(--deep-pink); font-size: 0.95rem;">10% FORGIVEN</p>
+            </div>
+
+            <button class="heal-heart-btn" id="heal-btn" onclick="tapHeart()">🤍</button>
+
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="goToPage(4)">← Back</button>
+                <button class="btn btn-primary" id="final-btn" style="display: none;" onclick="goToPage(1)">Start Over ❤️</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let currentPage = 1;
+        let forgivenessPercent = 10;
+
+        // Falling Hearts Background Animation
+        function createFallingHearts() {
+            const symbols = ['💖', '💕', '🌸', '💗', '✨', '🧸'];
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'falling-heart';
+                heart.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                heart.style.animationDelay = (Math.random() * 5) + 's';
+                document.body.appendChild(heart);
+            }
+        }
+        createFallingHearts();
+
+        // Page Navigation with 3D Card Tilt
+        function goToPage(pageNum) {
+            const currentCard = document.getElementById(`page-${currentPage}`);
+            const nextCard = document.getElementById(`page-${pageNum}`);
+            const stage = document.getElementById('stage');
+
+            if (pageNum > currentPage) {
+                stage.style.transform = `rotateY(-12deg) rotateX(2deg)`;
+            } else {
+                stage.style.transform = `rotateY(12deg) rotateX(-2deg)`;
+            }
+
+            setTimeout(() => {
+                stage.style.transform = `rotateY(0deg) rotateX(0deg)`;
+            }, 300);
+
+            currentCard.classList.remove('active');
+            nextCard.classList.add('active');
+            currentPage = pageNum;
+        }
+
+        // Tap Heart Forgiveness Meter Interaction
+        function tapHeart() {
+            if (forgivenessPercent < 100) {
+                forgivenessPercent += 18;
+                if (forgivenessPercent > 100) forgivenessPercent = 100;
+
+                const fill = document.getElementById('meter-fill');
+                const text = document.getElementById('percentage-text');
+                const btn = document.getElementById('heal-btn');
+                const art = document.getElementById('final-art');
+                const title = document.getElementById('meter-title');
+                const subtitle = document.getElementById('meter-subtitle');
+                const finalBtn = document.getElementById('final-btn');
+
+                fill.style.width = forgivenessPercent + '%';
+                text.innerText = forgivenessPercent + '% FORGIVEN';
+
+                btn.style.transform = 'scale(1.18)';
+                setTimeout(() => btn.style.transform = 'scale(1)', 120);
+
+                if (forgivenessPercent >= 100) {
+                    text.innerText = "100% FORGIVEN!";
+                    subtitle.innerText = "YOU'RE FORGIVEN! 💕";
+                    title.innerText = "THANK YOU, TANU! ❤️";
+                    art.innerText = "👩‍❤️‍💋‍👨💖";
+                    btn.innerText = "💖";
+                    btn.style.background = "#d63384";
+                    finalBtn.style.display = "block";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
